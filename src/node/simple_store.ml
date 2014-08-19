@@ -45,6 +45,7 @@ let __j_key = "*j"
 let __interval_key = "*interval"
 let __routing_key = "*routing"
 let __master_key  = "*master"
+let __checksum_key = "*checksum"
 (* let __lease_key = "*lease" *)
 (* let __lease_key2 = "*lease2" *)
 let __prefix = "@"
@@ -200,7 +201,10 @@ module type Simple_store = sig
   val optimize : t -> quiesced:bool -> stop:bool ref -> bool Lwt.t
   val defrag : t -> unit Lwt.t
   val copy_store : t -> bool -> Lwt_io.output_channel -> unit Lwt.t
-  val copy_store2 : string -> string -> bool -> unit Lwt.t
+  val copy_store2 : string -> string ->
+                    overwrite:bool ->
+                    throttling:float ->
+                    unit Lwt.t
 end
 
 let _f _pf = function
